@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños - CoronelMasters </title>
+    <style>
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes static {
+            0% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0.1;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: url('TARDIS.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .centered-text {
+            text-align: center;
+            color: white;
+            font-size: 3em; /* Tamaño grande */
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            animation: float 10s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        .highlight-melocoton {
+            color: #FFA07A; /* Color melocotón */
+            cursor: pointer; /* Cambia el cursor al pasar sobre la palabra */
+        }
+
+        .highlight-naranja {
+            color: #FF4500; /* Color naranja */
+        }
+
+        .static-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter><rect width="100" height="100" filter="url(#noiseFilter)" /></svg>') repeat;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
+            animation: static 1s steps(2, end) infinite;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            margin-bottom: 50px; /* Espacio adicional para el mensaje pequeño */
+        }
+
+        .small-text {
+            position: absolute;
+            bottom: 20px; /* Distancia del borde inferior */
+            left: 50%; /* Centrado horizontal */
+            transform: translateX(-50%); /* Ajuste para centrar */
+            color: white;
+            font-size: 1em; /* Tamaño pequeño */
+            font-style: italic;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .buttons-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px; /* Ajuste para mover los botones a la izquierda */
+            z-index: 1;
+        }
+
+        .button {
+            margin-right: 10px; /* Espaciado entre botones */
+            cursor: pointer;
+            background-color: #FF4500; /* Color de fondo naranja */
+            color: white; /* Color del texto blanco */
+            font-style: italic; /* Fuente cursiva */
+            padding: 10px 20px; /* Espaciado interior del botón */
+            border: none; /* Eliminar borde */
+            border-radius: 5px; /* Borde redondeado */
+        }
+
+        .button-stop {
+            cursor: pointer;
+            position: absolute;
+            bottom: 20px;
+            right: 20px; /* Ajuste para mover el botón a la derecha */
+            z-index: 1;
+            background-color: #FF4500; /* Color de fondo naranja */
+            color: white; /* Color del texto blanco */
+            font-style: italic; /* Fuente cursiva */
+            padding: 10px 20px; /* Espaciado interior del botón */
+            border: none; /* Eliminar borde */
+            border-radius: 5px; /* Borde redondeado */
+        }
+    </style>
+</head>
+<body>
+    <div class="static-overlay"></div>
+    <div class="content">
+        <div class="centered-text">
+            De las tardes más frías<br>
+            surgen las <span class="highlight-melocoton" onclick="playEasterEggSong()">amistades</span> más <span class="highlight-naranja">calurosas</span>.
+        </div>
+    </div>
+    <div class="small-text">
+        Feliz cumpleaños Coronel, gracias por todo, gracias por tu compañía.
+    </div>
+    <div class="buttons-container">
+        <button class="button" onclick="playSongA()">Reproducir Canción A</button>
+        <button class="button" onclick="playSongB()">Reproducir Canción B</button>
+    </div>
+    <button class="button-stop" onclick="stopSong()">Detener Canción</button>
+
+    <audio id="songA" src="ISS.mp3"></audio>
+    <audio id="songB" src="BM.mp3"></audio>
+    <audio id="easterEggSong" src="KCR.mp3"></audio>
+
+    <script>
+        var songA = document.getElementById('songA');
+        var songB = document.getElementById('songB');
+        var easterEggSong = document.getElementById('easterEggSong');
+	var buttonA = document.querySelector('.button:nth-of-type(1)');
+        var buttonB = document.querySelector('.button:nth-of-type(2)');
+
+        function playSongA() {
+            songB.pause();
+            songA.currentTime = 0; // Reinicia la canción
+            songA.play();
+            buttonA.style.display = 'none';
+            buttonB.style.display = 'block';
+        }
+
+        function playSongB() {
+            songA.pause();
+            songB.currentTime = 0; // Reinicia la canción
+            songB.play();
+            buttonB.style.display = 'none';
+            buttonA.style.display = 'block';
+        }
+
+        function stopSong() {
+            songA.pause();
+            songB.pause();
+	    easterEggSong.pause();
+        }
+
+        function playEasterEggSong() {
+            easterEggSong.currentTime = 0; // Reinicia la canción
+            easterEggSong.play();
+        }
+    </script>
+</body>
+</html>
